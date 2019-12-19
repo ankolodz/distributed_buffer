@@ -4,9 +4,9 @@
 -export([mymain/0]).
 mymain()->
   register(serverBuffer,self()),
-  Last = creatBuffer(2),
-  creatProducer(2),
-  creatConsumer(1),
+  Last = creatBuffer(10),
+  creatProducer(20),
+  creatConsumer(20),
   loop(Last),
   io:format("end").
 

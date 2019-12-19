@@ -4,7 +4,7 @@
 start() ->
   serverBuffer ! {getNeightbours,self()},
   receive
-    {getNeightbours, PidNextNode} ->
+    PidNextNode->
       loop(PidNextNode,empty)
   end.
 
@@ -17,6 +17,7 @@ loop (PidNextNode,empty) ->
       ProducerPid ! {isDone,self()},
       loop (PidNextNode,full);
     {consume,ConsumerPid} ->
+%%      io:format("Konsument -> podaj dalej"),
       PidNextNode ! {consume,ConsumerPid},
       loop (PidNextNode,empty)
   end;
@@ -27,6 +28,7 @@ loop (PidNextNode,full) ->
       ConsumerPid ! {isDone,self()},
       loop (PidNextNode,empty);
     {produce,ProducerPid} ->
+%%      io:format("Producent -> podaj dalej"),
       PidNextNode ! {produce,ProducerPid},
       loop (PidNextNode,full)
   end.

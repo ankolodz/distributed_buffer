@@ -10,15 +10,16 @@ start () ->
 
 produce(Buffer)->
   Buffer ! {produce,self()},
-  produceWait().
+  produceWait(Buffer).
 
-produceWait() ->
+produceWait(Buffer) ->
   receive
     {isDone,BufferPid} ->
       io:format("Produce!\n"),
       produce(BufferPid);
     _ ->
       io:format("Something goes wrong - Producer died")
+
   end.
 %% API
 

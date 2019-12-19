@@ -10,9 +10,9 @@ start () ->
 
 consume(Buffer)->
   Buffer ! {consume,self()},
-  consumeWait().
+  consumeWait(Buffer).
 
-consumeWait() ->
+consumeWait(Buffer) ->
   receive
     {isDone,BufferPid} ->
       io:format("Consume!\n"),
